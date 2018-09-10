@@ -21,7 +21,7 @@ const snakes = [
     id: 0,
     ownerId: 23,
     color: 'orange',
-    type: 'wiggling
+    type: 'wiggling'
   },
   {
     id: 1,
