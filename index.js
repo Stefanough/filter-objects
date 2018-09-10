@@ -1,5 +1,9 @@
 const objectFilter = {};
 
+/**
+ * @param {array} data input data. An array of objects to filter.
+ * @param {array} filterArray an array of objects to filter against.
+ */
 objectFilter.byArray = function byArray(object, filterArray) {
   // if the objects in the filter array have multiple properties
   // as in [{ id: 0, messageId:9 }]
@@ -19,6 +23,10 @@ objectFilter.byArray = function byArray(object, filterArray) {
   }, []);
 };
 
+/**
+ * @param {array} object input data an array of objects to filter.
+ * @param {object} filterObject options to filter against.
+ */
 objectFilter.byObject = function byObject(object, filterObject) {
   const filters = filterObject;
   let result = [];
@@ -35,6 +43,10 @@ objectFilter.byObject = function byObject(object, filterObject) {
     }
   });
 
+  // for cases where objects are added to result with a filter similar to
+  // { sex: 'F', age: ['40-49', '50-59'], location: ['Urban', 'Rural'] }
+  // may end up with objects like { sex: 'M', age: '65+', location: 'Urban' }
+  // which this block will filter out.
   Object.keys(filters).forEach((key) => {
     if (Array.isArray(filters[key])) {
       result = result.filter(item => filters[key].includes(item[key]));
